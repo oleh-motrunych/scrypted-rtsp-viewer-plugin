@@ -4,6 +4,15 @@
   "description": "Live camera grid and spotlight viewer using existing Scrypted camera streams.",
   "main": "dist/main.nodejs.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oleh-motrunych/scrypted-rtsp-viewer-plugin.git"
+  },
+  "keywords": ["scrypted", "plugin", "rtsp", "camera", "viewer"],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "engines": { "node": ">=20" },
   "scripts": {
     "build": "node scripts/build.cjs",

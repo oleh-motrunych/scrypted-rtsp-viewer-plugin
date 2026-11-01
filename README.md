@@ -28,7 +28,7 @@ For quick access, open Scrypted's launcher and click **RTSP Live Viewer**. Versi
 
 The direct viewer address is `https://YOUR_SCRYPTED_HOST:10443/endpoint/scrypted-rtsp-viewer/`. Sign in to the Scrypted Management Console first. The plugin endpoint requires an administrator session and rejects public access.
 
-The package is local and has not been published to npm. It will not appear in the public plugin search.
+After a version is published to npm, users can install it from Scrypted's **Plugins → Install Plugin** by entering `scrypted-rtsp-viewer`. Maintainer release instructions are below under **Publishing to npm**.
 
 ## Deploy from a Linux server with Docker
 
@@ -95,6 +95,45 @@ The preview runs at `http://127.0.0.1:8099/endpoint/scrypted-rtsp-viewer/` and u
 `npm run build` produces `dist/plugin.zip` for Scrypted and the compiled CommonJS plugin. `npm pack` creates an npm tarball without publishing. Tests exercise explicit/highest-resolution source selection, settings migration, missing-source errors, pinned stream refresh, FFmpeg HLS generation, pipeline sharing, access checks, cleanup, and the production plugin bundle with a simulated Scrypted SDK. Real-camera playback still requires deployment and verification on your Scrypted server.
 
 Scrypted API references: [plugin development](https://developer.scrypted.app/plugins.html), [HTTP handlers](https://developer.scrypted.app/gen/interfaces/HttpRequestHandler.html), and [stream requests](https://developer.scrypted.app/gen/interfaces/RequestMediaStreamOptions.html).
+
+## Publishing to npm
+
+[Publish to npm](.github/workflows/publish-npm.yml) runs when a `v*` tag is pushed. It requires the tag to match `package.json` exactly, installs FFmpeg, runs `npm run check`, and verifies that the npm tarball includes the Scrypted plugin ZIP, compiled entry point, README, and licenses. It publishes that tarball to npm. Stable versions use `latest`; prerelease versions such as `0.2.0-beta.1` use `next`.
+
+### Configure npm authentication once
+
+The workflow supports [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) through GitHub OIDC. Configure the package's npm **Settings → Trusted publishing** with:
+
+| Field | Value |
+| --- | --- |
+| Publisher | GitHub Actions |
+| Organization or user | `oleh-motrunych` |
+| Repository | `scrypted-rtsp-viewer-plugin` |
+| Workflow filename | `publish-npm.yml` |
+| Environment name | Leave empty |
+| Allowed actions | Allow direct publishing with `npm publish` |
+
+For the first publication, before the package has npm settings, add a GitHub repository Actions secret named `NPM_TOKEN`. Use an [npm granular access token](https://docs.npmjs.com/creating-and-viewing-access-tokens/) with read/write access that permits creating the package and **Bypass two-factor authentication** enabled. The npm account must be allowed to publish `scrypted-rtsp-viewer`. Do not commit the token. After the first publication, configure the trusted publisher and remove the `NPM_TOKEN` secret; subsequent releases use OIDC. A newly configured trusted publisher must publish successfully within two days or be recreated.
+
+### Publish a release
+
+Merge the workflow and package metadata into `main` before tagging. To publish the current version, push a matching tag; for example, when `package.json` is `0.1.3`:
+
+```sh
+git switch main
+git pull --ff-only
+git tag v0.1.3
+git push origin v0.1.3
+```
+
+For later releases, increment the version and push the version commit and its tag:
+
+```sh
+npm version patch
+git push origin main --follow-tags
+```
+
+Check the **Publish to npm** run in GitHub Actions. Each npm version can be published only once. Pushing a branch or opening a pull request does not publish a package.
 
 ## Publishing source
 
