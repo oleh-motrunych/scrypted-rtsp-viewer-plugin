@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>RTSP Live Viewer · Scrypted</title>
+  <link rel="stylesheet" href="app.css">
+  <script defer src="hls.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header>
+    <h1>RTSP Live Viewer</h1>
+    <div class="status-bar" aria-live="polite">
+      <span class="dot" id="live-dot" aria-hidden="true"></span>
+      <span id="stream-count">Discovering cameras…</span>
+    </div>
+  </header>
+  <div class="controls">
+    <div class="control-group" id="layout-group">
+      <label for="layout-select">Layout:</label>
+      <select id="layout-select">
+        <option value="1">1 column</option>
+        <option value="2" selected>2 columns</option>
+        <option value="3">3 columns</option>
+        <option value="4">4 columns</option>
+      </select>
+    </div>
+    <button class="toggle-btn" id="stats-toggle-all" aria-pressed="false">Show Stats</button>
+    <div class="controls-spacer"></div>
+    <button class="action-btn" id="reconnect-all-btn">Reconnect All</button>
+    <button class="action-btn" id="refresh-btn">Refresh Cameras</button>
+    <button class="action-btn" id="cameras-btn">Cameras</button>
+    <button class="back-btn" id="back-to-grid">Back to Grid</button>
+  </div>
+  <div class="page-message" id="page-message" role="alert" hidden></div>
+  <main id="stage"><div id="grid"></div></main>
+  <div class="modal-backdrop" id="cameras-modal">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="cameras-title" tabindex="-1">
+      <div class="modal-header">
+        <h2 class="modal-title" id="cameras-title">Cameras</h2>
+        <button class="action-btn" id="cameras-close">Close</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-help">Choose the video source for each camera, then Apply. Stream choices are saved for all viewers. Visibility is saved in this browser.</p>
+        <p class="modal-status" id="camera-settings-status" role="status"></p>
+        <div class="camera-list" id="camera-list"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="action-btn" id="select-all">Select All</button>
+        <button class="retry-btn" id="cameras-apply">Apply</button>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

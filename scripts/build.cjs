@@ -1,0 +1,10 @@
+const fs = require('node:fs');
+const path = require('node:path');
+fs.mkdirSync('fs/web', { recursive: true });
+fs.copyFileSync(require.resolve('hls.js/dist/hls.min.js'), 'fs/web/hls.min.js');
+fs.mkdirSync('fs/licenses', { recursive: true });
+for (const name of ['LICENSE', 'THIRD_PARTY_NOTICES.txt']) fs.copyFileSync(name, 'fs/licenses/' + name);
+fs.copyFileSync(path.join(path.dirname(require.resolve('hls.js/package.json')), 'LICENSE'), 'fs/licenses/hls.js-LICENSE');
+fs.copyFileSync('licenses/Apache-2.0.txt', 'fs/licenses/Apache-2.0.txt');
+process.env.NODE_ENV = 'production';
+require(path.join(path.dirname(require.resolve('@scrypted/sdk')), 'bin/scrypted-webpack.js'));

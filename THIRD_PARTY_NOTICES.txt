@@ -1,0 +1,37 @@
+Scrypted RTSP Live Viewer third-party notices
+
+This plugin adapts viewer styling and deployment/build helpers from the user's
+RTSP viewer and scrypted-motion-recorder projects. The recorder's MIT copyright
+and license notice is retained in LICENSE.
+
+The runtime bundles @scrypted/sdk 0.5.59 (ISC).
+Upstream: https://github.com/koush/scrypted/tree/main/sdk
+Attribution: the Scrypted project and its contributors.
+The published SDK declares ISC but provides no separate copyright notice.
+The SDK's optional ESM loader is disabled at build time for its CommonJS runtime.
+
+ISC License
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+The browser bundles hls.js 1.7.4 (Apache-2.0).
+Upstream: https://github.com/video-dev/hls.js
+Its upstream LICENSE notices are included as fs/licenses/hls.js-LICENSE,
+and the full Apache 2.0 terms as fs/licenses/Apache-2.0.txt in the plugin ZIP.
+The minified distribution retains its license banner.
+
+The optional deployment image includes readline-sync 1.4.10 (MIT), with its
+license retained in node_modules/readline-sync/LICENSE. Build dependencies,
+Node.js, Docker base-image packages, and the user's own FFmpeg installation
+retain their respective upstream licenses. They are not relicensed by this
+project's MIT license.
