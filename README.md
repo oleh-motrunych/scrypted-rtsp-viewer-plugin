@@ -35,3 +35,7 @@ Use **copy** mode with H.264 for lower server CPU use. For H.265 sources, select
 For detailed controls, settings, and troubleshooting, see the [viewer guide](https://github.com/oleh-motrunych/scrypted-rtsp-viewer-plugin/blob/main/docs/USAGE.md).
 
 Build, source deployment, and release procedures are in the [developer guide](https://github.com/oleh-motrunych/scrypted-rtsp-viewer-plugin/blob/main/docs/DEVELOPMENT.md).
+
+## License
+
+MIT. Copyright © 2026 Oleh Motrunych. Reused code and bundled libraries retain their original notices in `LICENSE` and `THIRD_PARTY_NOTICES.txt`.

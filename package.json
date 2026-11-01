@@ -2,6 +2,10 @@
   "name": "scrypted-rtsp-viewer",
   "version": "0.1.6",
   "description": "Live camera grid and spotlight viewer using existing Scrypted camera streams.",
+  "author": {
+    "name": "Oleh Motrunych",
+    "url": "https://github.com/oleh-motrunych"
+  },
   "main": "dist/main.nodejs.js",
   "license": "MIT",
   "repository": {
