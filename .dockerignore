@@ -1,0 +1,33 @@
+# Dependencies and generated output
+**/node_modules
+**/dist
+**/build
+**/artifacts
+**/coverage
+**/.nyc_output
+**/*.tsbuildinfo
+fs/web/hls.min.js
+fs/licenses
+**/*.tgz
+**/*.tar.gz
+
+# Local credentials and certificates
+**/.env*
+**/.npmrc
+**/.scrypted
+**/login.json
+**/login.json.*.tmp
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+**/id_rsa
+**/id_ed25519
+
+# Git history, logs, and local filesystem metadata
+**/.git
+**/*.log
+**/.DS_Store
+**/._*
+**/.AppleDouble
+**/__MACOSX
