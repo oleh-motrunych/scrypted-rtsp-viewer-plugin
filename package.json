@@ -1,6 +1,6 @@
 {
   "name": "scrypted-rtsp-viewer",
-  "version": "0.1.3",
+  "version": "0.1.6",
   "description": "Live camera grid and spotlight viewer using existing Scrypted camera streams.",
   "main": "dist/main.nodejs.js",
   "license": "MIT",
@@ -8,12 +8,20 @@
     "type": "git",
     "url": "git+https://github.com/oleh-motrunych/scrypted-rtsp-viewer-plugin.git"
   },
-  "keywords": ["scrypted", "plugin", "rtsp", "camera", "viewer"],
+  "keywords": [
+    "scrypted",
+    "plugin",
+    "rtsp",
+    "camera",
+    "viewer"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "node scripts/build.cjs",
     "typecheck": "tsc --noEmit",
@@ -24,11 +32,21 @@
     "scrypted-deploy": "node scripts/scrypted-deploy.cjs",
     "prepack": "npm run build"
   },
-  "files": ["dist", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.txt"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.txt"
+  ],
   "scrypted": {
     "name": "RTSP Live Viewer",
     "type": "API",
-    "interfaces": ["Settings", "HttpRequestHandler", "Readme", "LauncherApplication"]
+    "interfaces": [
+      "Settings",
+      "HttpRequestHandler",
+      "Readme",
+      "LauncherApplication"
+    ]
   },
   "devDependencies": {
     "@scrypted/sdk": "0.5.59",
