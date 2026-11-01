@@ -1,0 +1,80 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out release
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Validate release tag
+        id: release
+        run: |
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const fs = require('node:fs');
+          const { version } = require('./package.json');
+          assert.equal(process.env.GITHUB_REF_NAME, `v${version}`, 'Tag must match package.json version');
+          const tag = version.includes('-') ? 'next' : 'latest';
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `dist-tag=${tag}\n`);
+          NODE
+
+      - name: Install npm with trusted publishing support
+        run: npm install --global npm@11
+
+      - name: Install FFmpeg for playback tests
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends ffmpeg
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck, build, and test
+        run: npm run check
+
+      - name: Pack and verify release contents
+        id: package
+        run: |
+          npm pack --ignore-scripts --json > "$RUNNER_TEMP/npm-pack.json"
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const [pkg] = JSON.parse(fs.readFileSync(path.join(process.env.RUNNER_TEMP, 'npm-pack.json'), 'utf8'));
+          const files = new Set(pkg.files.map(file => file.path));
+          for (const file of ['dist/plugin.zip', 'dist/main.nodejs.js', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.txt']) {
+            assert.ok(files.has(file), `Missing release file: ${file}`);
+          }
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `tarball=${pkg.filename}\n`);
+          console.log(`Verified ${pkg.filename} (${pkg.files.length} files)`);
+          NODE
+
+      - name: Publish to npm
+        run: npm publish "./$PACKAGE_TARBALL" --access public --tag "$NPM_DIST_TAG"
+        env:
+          PACKAGE_TARBALL: ${{ steps.package.outputs.tarball }}
+          NPM_DIST_TAG: ${{ steps.release.outputs.dist-tag }}
