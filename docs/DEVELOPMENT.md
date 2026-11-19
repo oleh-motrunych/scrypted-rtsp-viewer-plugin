@@ -18,6 +18,12 @@ The preview runs at `http://127.0.0.1:8099/endpoint/scrypted-rtsp-viewer/` and u
 
 Scrypted API references: [plugin development](https://developer.scrypted.app/plugins.html), [HTTP handlers](https://developer.scrypted.app/gen/interfaces/HttpRequestHandler.html), and [stream requests](https://developer.scrypted.app/gen/interfaces/RequestMediaStreamOptions.html).
 
+## Dependency maintenance
+
+The SDK 0.5.61 build toolchain pins older ZIP and minification dependencies. The SDK-scoped `overrides` in `package.json` select `adm-zip` 0.6.1+ and `@rollup/plugin-terser` 1.0.2+ to resolve security advisories; the lockfile also includes patched `serialize-javascript`, `rimraf`, `glob`, and `minimatch` versions. Review these overrides when updating the SDK and remove them once its dependency requirements include the fixes.
+
+Keep TypeScript on 5.9 while the SDK's webpack build uses its compiler API, and keep Node typings on major 22 to match the Docker build. After dependency updates, run `npm ci`, `npm run check`, and `npm audit` before releasing.
+
 ## Deploy to a Scrypted server
 
 Requires Node.js 20+ on the build machine and FFmpeg on the Scrypted server (normally supplied by Scrypted).

@@ -8,7 +8,7 @@ RTSP viewer and scrypted-motion-recorder projects. The original recorder
 contributors' MIT copyright notice is retained in LICENSE alongside this
 project's copyright notice.
 
-The runtime bundles @scrypted/sdk 0.5.59 (ISC).
+The runtime bundles @scrypted/sdk 0.5.61 (ISC).
 Upstream: https://github.com/koush/scrypted/tree/main/sdk
 Attribution: the Scrypted project and its contributors.
 The published SDK declares ISC but provides no separate copyright notice.
