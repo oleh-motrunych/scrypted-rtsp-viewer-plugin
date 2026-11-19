@@ -5,7 +5,7 @@ A live camera grid for cameras already configured in Scrypted, with a spotlight 
 ## Installation
 
 1. In the Scrypted Management Console, open **Plugins → Install Plugin**.
-2. Enter `scrypted-rtsp-viewer` and install it.
+2. Enter [`scrypted-rtsp-viewer`](https://www.npmjs.com/package/scrypted-rtsp-viewer) and install it.
 3. Enable **Rebroadcast** under each camera's extensions.
 4. Open **RTSP Live Viewer** from the Scrypted launcher, or use **Plugins → RTSP Live Viewer → Settings → Open RTSP Live Viewer**.
 
