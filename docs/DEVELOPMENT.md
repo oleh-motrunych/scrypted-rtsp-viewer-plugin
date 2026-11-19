@@ -73,7 +73,7 @@ The workflow uses [npm trusted publishing](https://docs.npmjs.com/trusted-publis
 | Organization or user | `oleh-motrunych` |
 | Repository | `scrypted-rtsp-viewer-plugin` (no leading slash) |
 | Workflow filename | `publish.yml` |
-| Environment name | Leave empty |
+| Environment name | `scrypted-rtsp-viewer-plugin` |
 | Allowed actions | Allow direct publishing with `npm publish` |
 
 A newly configured trusted publisher remains pending until a successful publish from this workflow. Complete that publish within two days of configuring the publisher; if the configuration expires, delete and recreate it in npm.

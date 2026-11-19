@@ -1,6 +1,6 @@
 {
   "name": "scrypted-rtsp-viewer",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Live camera grid and spotlight viewer using existing Scrypted camera streams.",
   "author": {
     "name": "Oleh Motrunych",
